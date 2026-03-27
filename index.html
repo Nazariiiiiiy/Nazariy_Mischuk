@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spisok</title>
     <link rel="stylesheet" href="index.css">
+    <title> Стилі </title>
 </head>
 <body>
-    <h2>Додати елемент до списку </h2>
-    <input type="text" id="textInput" placeholder="Ведіть текс">
-    <button id="addBtn">Додати</button>
-    <button id="sortBtn">Сортувати</button>
-    <ul id="myList"></ul>
+    <input type="color" id="c">
+    <input type="range" id="s" min="10" max="50">
+    <button onclick="bold()"> B </button>
+    <button onclick="toggle()"> Сховати </button>
+    <button onclick="theme()"> Тема </button>
+    <button onclick="reset()"> Скинути </button>
+    <p id="t"> Текст </p>
     <script src="indexx.js"></script>
 </body>
 </html>

@@ -1,37 +1,22 @@
-let input = document.getElementById("textInput");
-let addBtn = document.getElementById("addBtn");
-let sortBtn = document.getElementById("sortBtn");
-let list = document.getElementById("myList");
+c.oninput = () => t.style.color = c.value;
 
-addBtn.addEventListener("click", function(){
-  let text = input.value.trim();
+s.oninput = () => t.style.fontSize = s.value + "px";
 
-  if(text === ""){
-    alert("Ведіть текст!");
-    return;
-  }
-  let li = document.createElement("li")
-  li.textContent = text;
+function bold() {
+  t.style.fontWeight =
+    t.style.fontWeight == "bold" ? "normal" : "bold";
+}
 
-  li.addEventListener("click", function(){
-    li.remove();
-  });
+function toggle() {
+  t.style.display =
+    t.style.display == "none" ? "block" : "none";
+}
 
-  list.appendChild(li);
-  input.value = "";
-});
+function theme() {
+  document.body.classList.toggle("dark");
+}
 
-sortBtn.addEventListener("click", function(){
-  
-  let items = Array.from(list.children);
-
-  items.sort(function(a, b){
-    return a.textContent.localeCompare(b.textContent);
-  });
-  
-  list.innerHTML = "";
-
-  items.forEach(function(item){
-    list.appendChild(item);
-  });
-});
+function reset() {
+  t.style = "";
+  document.body.className = "";
+}
