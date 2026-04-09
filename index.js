@@ -1,39 +1,29 @@
-const urls = [
-    "https://jsonplaceholder.typicode.com/posts/1",
-    "https://jsonplaceholder.typicode.com/users/1",
-    "https://jsonplaceholder.typicode.com/todos/1"
-];
-function fetchData(url) {
-    return new Promise((resolve, reject) => {
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (Math.random() < 0.3) {
-                    reject(new Error("Random error"));
-                } else {
-                    resolve(data);
-                }
-            })
-            .catch(err => reject(err));
-    });
+function getRandomNumber() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const num = Math.floor(Math.random() * 100) + 1;
+      resolve(num);
+    }, 1000);
+  });
 }
-async function fetchAllData(urls) {
-    let results = await Promise.allSettled(
-        urls.map(url => fetchData(url))
-    );
-    const failedIndexes = results
-        .map((res, index) => res.status === "rejected" ? index : -1)
-        .filter(index => index !== -1);
-    if (failedIndexes.length > 0) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        const retryPromises = failedIndexes.map(index =>
-            fetchData(urls[index])
-        );
-        const retryResults = await Promise.allSettled(retryPromises);
-        failedIndexes.forEach((index, i) => {
-            results[index] = retryResults[i];
-        });
+
+async function processNumber() {
+  try {
+    const number = await getRandomNumber();
+    console.log("Отримане число:", number);
+
+    if (number < 50) {
+      const result = await Promise.resolve(number + 20);
+      return result;
+    } else {
+      await Promise.reject("Занадто велике число!");
     }
-    return results;
+  } catch (error) {
+    console.log("Помилка:", error);
+    return "Оброблено помилку";
+  }
 }
-fetchAllData(urls).then(results => console.log(results));
+
+processNumber().then(result => {
+  console.log("Результат:", result);
+});
